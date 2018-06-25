@@ -1,3 +1,9 @@
+/*
+ *  Copyright (c) 2018.
+ *  Max Robinson
+ *  All Rights reserved.
+ */
+
 package edu.jhu.mrobi100;
 
 import org.junit.Test;
