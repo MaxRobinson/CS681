@@ -28,6 +28,19 @@ public abstract class Aircraft implements Contact {
   }
 
   // <editor-fold desc="Override">
+
+
+  @Override
+  public String toString() {
+    return "Aircraft{" +
+            "length=" + length +
+            ", speed=" + speed +
+            ", name='" + name + '\'' +
+            ", type='" + type + '\'' +
+            ", altitude=" + altitude +
+            '}';
+  }
+
   @Override
   public int getLength() {
     return length;

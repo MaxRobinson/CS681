@@ -17,7 +17,7 @@ public class Submarine extends Ship {
 
   @Override
   public String toString() {
-    return "Submarine{" + "numberTorpedos=" + numberTorpedos + "} and " + super.toString();
+    return "Submarine{" + "numberTorpedos=" + numberTorpedos + ", " + super.toString() + "}" ;
   }
 
   public int getNumberTorpedos() {

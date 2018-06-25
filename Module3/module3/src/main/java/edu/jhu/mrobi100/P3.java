@@ -16,7 +16,7 @@ public class P3 extends Aircraft {
 
   @Override
   public String toString() {
-    return "P3{" + "numberEngines=" + numberEngines + '}';
+    return "P3{" + "numberEngines=" + numberEngines + ", " + super.toString() + '}';
   }
 
   // <editor-fold desc="Properties">

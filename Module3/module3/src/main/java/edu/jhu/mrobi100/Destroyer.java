@@ -21,7 +21,7 @@ public class Destroyer extends Ship {
   // <editor-fold desc="Override">
   @Override
   public String toString() {
-    return "Destroyer{" + "numberMissile=" + numberMissile + '}';
+    return "Destroyer{" + "numberMissile=" + numberMissile + ", " +  super.toString() + '}';
   }
   // </editor-fold>
 
