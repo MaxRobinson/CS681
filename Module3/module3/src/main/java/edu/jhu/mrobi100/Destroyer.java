@@ -9,19 +9,17 @@ public class Destroyer extends Ship {
 
   private int numberMissile;
 
-  public Destroyer(int length, int speed, String name, String type, int numberMissile) {
+  public Destroyer(int length, int speed, String name, String type,
+                   int numberMissile) {
     super(length, speed, name, type);
-    if (numberMissile >= 0) {
-      this.numberMissile = numberMissile;
-    } else {
-      this.numberMissile = 0;
-    }
+    setNumberMissiles(numberMissile);
   }
 
   // <editor-fold desc="Override">
   @Override
   public String toString() {
-    return "Destroyer{" + "numberMissile=" + numberMissile + ", " +  super.toString() + '}';
+    return "Destroyer{" + "numberMissile=" + numberMissile + ", " +
+            super.toString() + '}';
   }
   // </editor-fold>
 
@@ -40,9 +38,10 @@ public class Destroyer extends Ship {
 
   public void setNumberMissiles(String numberMissiles) {
     try {
-      numberMissile = Integer.parseInt(numberMissiles);
+      int m = Integer.parseInt(numberMissiles);
+      setNumberMissiles(m);
     } catch (Exception ex) {
-      this.numberMissile = DEFAULT_NUMBER_MISSILES;
+      setNumberMissiles(DEFAULT_NUMBER_MISSILES);
     }
   }
   // </editor-fold>

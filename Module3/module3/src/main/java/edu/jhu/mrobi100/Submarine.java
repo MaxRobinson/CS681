@@ -6,18 +6,16 @@ public class Submarine extends Ship {
 
   private int numberTorpedos;
 
-  public Submarine(int length, int speed, String name, String type, int numberTorpedos) {
+  public Submarine(int length, int speed, String name, String type,
+                   int numberTorpedos) {
     super(length, speed, name, type);
-    if (numberTorpedos >= 0) {
-      this.numberTorpedos = numberTorpedos;
-    } else {
-      this.numberTorpedos = 0;
-    }
+    setNumberTorpedos(numberTorpedos);
   }
 
   @Override
   public String toString() {
-    return "Submarine{" + "numberTorpedos=" + numberTorpedos + ", " + super.toString() + "}" ;
+    return "Submarine{" + "numberTorpedos=" + numberTorpedos + ", " +
+            super.toString() + "}";
   }
 
   public int getNumberTorpedos() {
@@ -34,9 +32,10 @@ public class Submarine extends Ship {
 
   public void setNumberTorpedos(String numberTorpedos) {
     try {
-      this.numberTorpedos = Integer.parseInt(numberTorpedos);
+      int t = Integer.parseInt(numberTorpedos);
+      setNumberTorpedos(t);
     } catch (Exception ex) {
-      this.numberTorpedos = DEFAULT_NUMBER_TORPEDOS;
+      setNumberTorpedos(DEFAULT_NUMBER_TORPEDOS);
     }
   }
 }

@@ -9,36 +9,35 @@ public abstract class Aircraft implements Contact {
   private String type;
   private int altitude;
 
-  public Aircraft(int length, int speed, String name, String type, int altitude) {
-    if (length >= 0) {
-      this.length = length;
-    } else {
-      this.length = 0;
-    }
+  public Aircraft(int length, int speed, String name, String type,
+                  int altitude) {
+    setLength(length);
 
-    this.speed = speed;
-    this.name = name;
-    this.type = type;
+    setSpeed(speed);
+    setName(name);
+    setType(type);
 
-    if (altitude >= 0) {
-      this.altitude = altitude;
-    } else {
-      this.altitude = altitude;
-    }
+    setAltitude(altitude);
   }
 
   // <editor-fold desc="Override">
 
-
   @Override
   public String toString() {
-    return "Aircraft{" +
-            "length=" + length +
-            ", speed=" + speed +
-            ", name='" + name + '\'' +
-            ", type='" + type + '\'' +
-            ", altitude=" + altitude +
-            '}';
+    return "Aircraft{"
+        + "length="
+        + length
+        + ", speed="
+        + speed
+        + ", name='"
+        + name
+        + '\''
+        + ", type='"
+        + type
+        + '\''
+        + ", altitude="
+        + altitude
+        + '}';
   }
 
   @Override
@@ -68,9 +67,10 @@ public abstract class Aircraft implements Contact {
   @Override
   public void setSpeed(String speed) {
     try {
-      this.speed = Integer.parseInt(speed);
+      int s = Integer.parseInt(speed);
+      setSpeed(s);
     } catch (Exception ex) {
-      this.speed = 0;
+      setSpeed(0);
     }
   }
 

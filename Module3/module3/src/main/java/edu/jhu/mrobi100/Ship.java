@@ -15,12 +15,18 @@ public abstract class Ship implements Contact {
 
   @Override
   public String toString() {
-    return "Ship{" +
-            "length=" + length +
-            ", speed=" + speed +
-            ", name='" + name + '\'' +
-            ", type='" + type + '\'' +
-            '}';
+    return "Ship{"
+        + "length="
+        + length
+        + ", speed="
+        + speed
+        + ", name='"
+        + name
+        + '\''
+        + ", type='"
+        + type
+        + '\''
+        + '}';
   }
 
   @Override
@@ -30,7 +36,7 @@ public abstract class Ship implements Contact {
 
   @Override
   public void setLength(int length) {
-    if(length >= 0){
+    if (length >= 0) {
       this.length = length;
     } else {
       this.length = 0;
@@ -50,9 +56,10 @@ public abstract class Ship implements Contact {
   @Override
   public void setSpeed(String speed) {
     try {
-      this.speed = Integer.parseInt(speed);
+      Integer s = Integer.parseInt(speed);
+      setSpeed(s);
     } catch (Exception ex) {
-      this.speed = 0;
+      setSpeed(0);
     }
   }
 
