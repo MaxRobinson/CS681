@@ -1,5 +1,7 @@
 *.idea
 *.iml
+*.doc*
+*.odt*
 *target/
 # Compiled class file
 *.class
