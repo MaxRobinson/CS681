@@ -206,18 +206,33 @@ public class BhcGUI extends JFrame {
       if (rates.getDetails().contains("out of season")) {
 
         if (rates.getBeginBookingDay().before(seasonStartMonth, seasonStartDay)) {
-          message = "Start date is before the season opens. Please select a start date after " + seasonStartMonth +"/"+seasonStartDay;
+          message =
+              "Start date is before the season opens. Please select a start date after "
+                  + seasonStartMonth
+                  + "/"
+                  + seasonStartDay;
         } else if (rates.getBeginBookingDay().after(seasonEndMonth, seasonEndDay)) {
-          message = "Start date is after the season closes. Please select a start date before " + seasonEndMonth +"/"+seasonEndDay;
+          message =
+              "Start date is after the season closes. Please select a start date before "
+                  + seasonEndMonth
+                  + "/"
+                  + seasonEndDay;
         } else if (rates.getEndBookingDay().after(seasonStartMonth, seasonStartDay)) {
-          message = "End date is after the season closes. Please select a start date and duration that ends before " + seasonEndMonth +"/"+seasonEndDay;
-        } else if(rates.getEndBookingDay().before(seasonStartMonth, seasonStartDay)){
-          message = "End date is before the season opens. Please select a start date that after " + seasonStartMonth +"/"+seasonStartDay;
+          message =
+              "End date is after the season closes. Please select a start date and duration that ends before "
+                  + seasonEndMonth
+                  + "/"
+                  + seasonEndDay;
+        } else if (rates.getEndBookingDay().before(seasonStartMonth, seasonStartDay)) {
+          message =
+              "End date is before the season opens. Please select a start date that after "
+                  + seasonStartMonth
+                  + "/"
+                  + seasonStartDay;
         }
       }
 
-      JOptionPane.showMessageDialog(
-          this, message, "Trip Date Error", JOptionPane.ERROR_MESSAGE);
+      JOptionPane.showMessageDialog(this, message, "Trip Date Error", JOptionPane.ERROR_MESSAGE);
       return;
     }
 
