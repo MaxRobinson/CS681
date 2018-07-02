@@ -68,9 +68,15 @@ public class BhcGUI extends JFrame {
   // </editor-fold>
 
   // <editor-fold desc="Constructor & Init">
+
+  /**
+   * Default constructor for Bhc GUI that initializes needed values,
+   * initializes the GUI components.
+   */
   public BhcGUI() {
     initValues();
     initComponents();
+    // Ensure a duration is selected current hike.
     hikesActionPerformed(null);
   }
 
