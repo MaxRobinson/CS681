@@ -85,12 +85,13 @@ public class BhcGUI extends JFrame {
   private void initComponents() {
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-    title = new JLabel("BHC Scheduler", SwingConstants.CENTER);
+    title = new JLabel("BHC Cost Calculator", SwingConstants.CENTER);
+    title.setFont(new Font("Dialog", 1, 24));
 
     beginDate = new JLabel("Begin Date (m/d/y)");
     hike = new JLabel("Hike");
     duration = new JLabel("Duration");
-    cost = new JLabel("Cost");
+    cost = new JLabel("Total Cost");
     totalCost = new JLabel("");
     totalCost.setHorizontalAlignment(SwingConstants.RIGHT);
 
@@ -130,55 +131,70 @@ public class BhcGUI extends JFrame {
 
     getContentPane().setLayout(gbl);
 
+    JPanel p = new JPanel();
+    p.setLayout(gbl);
+
     c.gridx = 0;
     c.gridy = GridBagConstraints.RELATIVE;
+    c.fill = GridBagConstraints.BOTH;
+    c.insets = WEST_INSETS;
 
     c.anchor = GridBagConstraints.WEST;
-    c.fill = GridBagConstraints.BOTH;
-
-    c.insets = WEST_INSETS;
-    add(title, c);
-
-    add(beginDate, c);
-    add(hike, c);
-    add(duration, c);
-    add(new JLabel(), c);
-    add(cost, c);
+    p.add(beginDate, c);
+    p.add(hike, c);
+    p.add(duration, c);
+    p.add(new JLabel(), c);
+    p.add(cost, c);
 
     c.anchor = GridBagConstraints.EAST;
     c.insets = EAST_INSETS;
 
     c.gridx = 1;
-    c.gridy = 1;
-    add(month, c);
+    c.gridy = 0;
+    p.add(month, c);
     c.gridx = 2;
-    add(day, c);
+    p.add(day, c);
     c.gridx = 3;
-    add(year, c);
+    p.add(year, c);
+
+    c.gridx = 1;
+    c.gridy = 1;
+    c.gridwidth = 3;
+    p.add(hikes, c);
 
     c.gridx = 1;
     c.gridy = 2;
     c.gridwidth = 3;
-    add(hikes, c);
-
-    c.gridx = 1;
-    c.gridy = 3;
-    c.gridwidth = 3;
-    add(durations, c);
+    p.add(durations, c);
 
     c.gridx = 2;
-    c.gridy = 4;
+    c.gridy = 3;
     c.gridwidth = 3;
-    add(query, c);
+    p.add(query, c);
 
     c.gridx = 1;
-    c.gridy = 5;
-    add(totalCost, c);
+    c.gridy = 4;
+    p.add(totalCost, c);
+
+
+    c.insets = new Insets(15,15,0,15);
+
+    c.gridx = 1;
+    c.gridy = 0;
+    c.anchor = GridBagConstraints.NORTH;
+    add(title, c);
+
+    c.insets = new Insets(15,15,15,15);
+    c.gridx = 1;
+    c.gridy = 1;
+    c.anchor = GridBagConstraints.NORTH;
+    add(p, c);
   }
   // </editor-fold>
 
   // <editor-fold desc="Action Listeners">
   private void query() {
+    totalCost.setText("");
     // Get date
     // verify date & create dialog if not
     int m = (int) month.getSelectedItem();
