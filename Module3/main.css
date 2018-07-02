@@ -1,0 +1,11 @@
+@charset "utf-8";
+/* CSS Document */
+body {font-family: "Roboto", serif;}
+.navbar a {color:white}
+.surcharge {color:gray; font-style: italic}
+.easy {color: forestgreen}
+.intermediate {color: deepskyblue}
+.difficult {color: maroon}
+li {text-align: right; list-style: none}
+td {text-align: center}
+thead tr td {font-weight: bold}
