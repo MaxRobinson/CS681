@@ -17,7 +17,13 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-/** Hello world! */
+/**
+ * BhcGUI
+ *
+ * <p>Creates a GUI for a user to calculate how much a BHC tour would cost Uses {@link BookingDay}
+ * and {@link Rates} to book a day, validate the dates of the tour, and calculate the cost of the
+ * tour.
+ */
 public class BhcGUI extends JFrame {
 
   // <editor-fold desc="Statics">
@@ -176,15 +182,14 @@ public class BhcGUI extends JFrame {
     c.gridy = 4;
     p.add(totalCost, c);
 
-
-    c.insets = new Insets(15,15,0,15);
+    c.insets = new Insets(15, 15, 0, 15);
 
     c.gridx = 1;
     c.gridy = 0;
     c.anchor = GridBagConstraints.NORTH;
     add(title, c);
 
-    c.insets = new Insets(15,15,15,15);
+    c.insets = new Insets(15, 15, 15, 15);
     c.gridx = 1;
     c.gridy = 1;
     c.anchor = GridBagConstraints.NORTH;
@@ -218,36 +223,7 @@ public class BhcGUI extends JFrame {
     rates.setDuration((int) durations.getSelectedItem());
 
     if (!rates.isValidDates()) {
-      String message = "";
-      if (rates.getDetails().contains("out of season")) {
-
-        if (rates.getBeginBookingDay().before(seasonStartMonth, seasonStartDay)) {
-          message =
-              "Start date is before the season opens. Please select a start date after "
-                  + seasonStartMonth
-                  + "/"
-                  + seasonStartDay;
-        } else if (rates.getBeginBookingDay().after(seasonEndMonth, seasonEndDay)) {
-          message =
-              "Start date is after the season closes. Please select a start date before "
-                  + seasonEndMonth
-                  + "/"
-                  + seasonEndDay;
-        } else if (rates.getEndBookingDay().after(seasonStartMonth, seasonStartDay)) {
-          message =
-              "End date is after the season closes. Please select a start date and duration that ends before "
-                  + seasonEndMonth
-                  + "/"
-                  + seasonEndDay;
-        } else if (rates.getEndBookingDay().before(seasonStartMonth, seasonStartDay)) {
-          message =
-              "End date is before the season opens. Please select a start date that after "
-                  + seasonStartMonth
-                  + "/"
-                  + seasonStartDay;
-        }
-      }
-
+      String message = createDatesErrorMessage(rates);
       JOptionPane.showMessageDialog(this, message, "Trip Date Error", JOptionPane.ERROR_MESSAGE);
       return;
     }
@@ -256,6 +232,39 @@ public class BhcGUI extends JFrame {
 
     // set cost
     totalCost.setText("$" + value);
+  }
+
+  private String createDatesErrorMessage(Rates rates) {
+    String message = "";
+    if (rates.getDetails().contains("out of season")) {
+
+      if (rates.getBeginBookingDay().before(seasonStartMonth, seasonStartDay)) {
+        message =
+            "Start date is before the season opens. Please select a start date after "
+                + seasonStartMonth
+                + "/"
+                + seasonStartDay;
+      } else if (rates.getBeginBookingDay().after(seasonEndMonth, seasonEndDay)) {
+        message =
+            "Start date is after the season closes. Please select a start date before "
+                + seasonEndMonth
+                + "/"
+                + seasonEndDay;
+      } else if (rates.getEndBookingDay().after(seasonStartMonth, seasonStartDay)) {
+        message =
+            "End date is after the season closes. Please select a start date and duration that ends before "
+                + seasonEndMonth
+                + "/"
+                + seasonEndDay;
+      } else if (rates.getEndBookingDay().before(seasonStartMonth, seasonStartDay)) {
+        message =
+            "End date is before the season opens. Please select a start date that after "
+                + seasonStartMonth
+                + "/"
+                + seasonStartDay;
+      }
+    }
+    return message;
   }
 
   private void hikesActionPerformed(ActionEvent e) {
