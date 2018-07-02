@@ -8,7 +8,7 @@
   <artifactId>module3</artifactId>
   <version>1.0-SNAPSHOT</version>
 
-  <name>Module3</name>
+  <name>Module4</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
