@@ -31,8 +31,8 @@ public class BhcGUI extends JFrame {
   private final Integer[] YEARS = new Integer[] {2018, 2019, 2020};
   private final Integer[] MONTHS = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
   private final Integer[] DAYS = {
-    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26,
-    27, 28, 29, 30, 31
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
+    22, 23, 24, 25, 26, 27, 28, 29, 30, 31
   };
   private final String hellroaring_plateau = "Hellroaring Plateau";
   private final String the_beaten_path = "The Beaten Path";
@@ -288,8 +288,11 @@ public class BhcGUI extends JFrame {
    * Beaten Path is hike_id 2, with durations of 5 or 7 days
    * @return
    */
-  private String createRequestMessage(int hike_id, int begin_year, int begin_month, int begin_day, int duration) {
-    return String.format("%d:%d:%d:%d:%d", hike_id, begin_year, begin_month, begin_day, duration);
+  private String createRequestMessage(int hike_id, int begin_year,
+                                      int begin_month, int begin_day,
+                                      int duration) {
+    return String.format("%d:%d:%d:%d:%d", hike_id, begin_year,
+            begin_month, begin_day, duration);
   }
 
   private void hikesActionPerformed(ActionEvent e) {

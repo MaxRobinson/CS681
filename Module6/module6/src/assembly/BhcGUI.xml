@@ -20,7 +20,7 @@
             <useStrictFiltering>true</useStrictFiltering>
             <unpack>true</unpack>
             <includes>
-                <include>edu.jhu.mrobi100:module5</include>
+                <include>edu.jhu.mrobi100:module6</include>
             </includes>
         </dependencySet>
     </dependencySets>
