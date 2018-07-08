@@ -6,13 +6,14 @@
 
 package edu.jhu.mrobi100;
 
-import com.rbevans.bookingrate.BookingDay;
 import com.rbevans.bookingrate.Rates;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.*;
+import java.net.Socket;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -20,7 +21,7 @@ import java.util.List;
 /**
  * BhcGUI
  *
- * <p>Creates a GUI for a user to calculate how much a BHC tour would cost Uses {@link BookingDay}
+ * <p>Creates a GUI for a user to calculate how much a BHC tour would cost Uses
  * and {@link Rates} to book a day, validate the dates of the tour, and calculate the cost of the
  * tour.
  */
@@ -211,66 +212,84 @@ public class BhcGUI extends JFrame {
     int m = (int) month.getSelectedItem();
     int d = (int) day.getSelectedItem();
     int y = (int) year.getSelectedItem();
+    Rates.HIKE h = hikeMapping.get((String) hikes.getSelectedItem());
+    int duration = (int) durations.getSelectedItem();
 
-    BookingDay bd = new BookingDay(y, m, d);
-    if (!bd.isValidDate()) {
+    String message = createRequestMessage(h.ordinal(), y, m, d, duration);
+
+    try(Socket s = new Socket("web7.jhuep.com", 20025)){
+      PrintWriter pw = new PrintWriter(s.getOutputStream(), true);
+      BufferedReader br = new BufferedReader(new InputStreamReader(s.getInputStream()));
+      pw.println(message);
+
+      String response = br.readLine();
+
+      String[] values = parseResponse(response);
+      if(values == null){
+        createErrorMessage("Error in response message, please try again");
+        return;
+      }
+
+      boolean error = isErrorResponse(values);
+      if(error) {
+        createErrorMessage(values[1]);
+        return;
+      }
+
+      String value = values[0];
+      // set cost
+      totalCost.setText("$" + value);
+    } catch (Exception ex) {
       JOptionPane.showMessageDialog(
           this,
           "Date is invalid, please select a valid date.",
           "Date Error",
           JOptionPane.ERROR_MESSAGE);
-      return;
     }
-
-    // get duration and hike, and calculate cost
-    Rates.HIKE h = hikeMapping.get((String) hikes.getSelectedItem());
-    Rates rates = new Rates(h);
-    rates.setBeginDate(bd);
-    rates.setDuration((int) durations.getSelectedItem());
-
-    if (!rates.isValidDates()) {
-      String message = createDatesErrorMessage(rates);
-      JOptionPane.showMessageDialog(this, message, "Trip Date Error", JOptionPane.ERROR_MESSAGE);
-      return;
-    }
-
-    double value = rates.getCost();
-
-    // set cost
-    totalCost.setText("$" + value);
   }
 
-  private String createDatesErrorMessage(Rates rates) {
-    String message = "";
-    if (rates.getDetails().contains("out of season")) {
+  private void createErrorMessage(String message) {
+    JOptionPane.showMessageDialog(
+          this,
+          message,
+          "Error",
+          JOptionPane.ERROR_MESSAGE);
+  }
 
-      if (rates.getBeginBookingDay().before(seasonStartMonth, seasonStartDay)) {
-        message =
-            "Start date is before the season opens. Please select a start date after "
-                + seasonStartMonth
-                + "/"
-                + seasonStartDay;
-      } else if (rates.getBeginBookingDay().after(seasonEndMonth, seasonEndDay)) {
-        message =
-            "Start date is after the season closes. Please select a start date before "
-                + seasonEndMonth
-                + "/"
-                + seasonEndDay;
-      } else if (rates.getEndBookingDay().after(seasonStartMonth, seasonStartDay)) {
-        message =
-            "End date is after the season closes. Please select a start date and duration that ends before "
-                + seasonEndMonth
-                + "/"
-                + seasonEndDay;
-      } else if (rates.getEndBookingDay().before(seasonStartMonth, seasonStartDay)) {
-        message =
-            "End date is before the season opens. Please select a start date that after "
-                + seasonStartMonth
-                + "/"
-                + seasonStartDay;
-      }
+  private boolean isErrorResponse(String[] values) {
+    String cost = values[0];
+    return "-0.01".equals(cost);
+  }
+
+  /**
+   * Parses the response from server.
+   *
+   * The returned result will be the cost followed by a ":", followed by some text
+   * If things go well, you'll get the cost and the text "Quoted Rate",
+   * if there is a problem, the cost will by -0.01 and the text will have some explanation
+   * @param response
+   * @return
+   */
+  private String[] parseResponse(String response) {
+    String[] splits = response.split(":");
+    if (splits.length < 2) {
+      return null;
     }
-    return message;
+    return splits;
+  }
+
+  /**
+   * Create Message in following format
+   *
+   * hike_id:begin_year:begin_month:begin_day:duration (e.g: 1:2008:7:1:3)
+   *
+   * Gardiner Lake is hike_id 0, with durations of 3 or 5 days
+   * Hellroaring Plateu is hike_id 1, with durations of 2, 3, or 4 days
+   * Beaten Path is hike_id 2, with durations of 5 or 7 days
+   * @return
+   */
+  private String createRequestMessage(int hike_id, int begin_year, int begin_month, int begin_day, int duration) {
+    return String.format("%d:%d:%d:%d:%d", hike_id, begin_year, begin_month, begin_day, duration);
   }
 
   private void hikesActionPerformed(ActionEvent e) {
