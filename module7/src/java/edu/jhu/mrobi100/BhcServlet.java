@@ -222,7 +222,7 @@ public class BhcServlet extends HttpServlet {
 "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">\n" +
 "<html>\n" +
 "  <head>\n" +
-"    <!-- Link to site: https://web7.jhuep.com/~mrobi100/index.html -->\n" +
+"    <!-- Link to site: https://web7.jhuep.com/mrobi100_module7/index.html -->\n" +
 "\n" +
 "    <title>BHC</title>\n" +
 "    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-1\">\n" +
@@ -243,7 +243,7 @@ public class BhcServlet extends HttpServlet {
 "  <body>\n" +
 "    <!-- Nav -->\n" +
 "    <div class=\"nav navbar navbar-dark bg-dark\">\n" +
-"      <a class=\"nav-link\" href=\"https://web7.jhuep.com/~mrobi100/index.html\">Home</a>\n" +
+"      <a class=\"nav-link\" href=\"https://web7.jhuep.com/mrobi100_module7/index.html\">Home</a>\n" +
 "      <a class=\"pull-right\" href=\"https://www.fs.usda.gov/recarea/shoshone/recarea/?recid=80899\">\n" +
 "        Visit the Forest Service's Page\n" +
 "      </a>\n" +
