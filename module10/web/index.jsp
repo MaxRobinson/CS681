@@ -8,7 +8,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
   <head>
-    <!-- Link to site: https://web7.jhuep.com/mrobi100_module7/index.jsp -->
+    <!-- Link to site: https://web7.jhuep.com/mrobi100_module10/index.jsp -->
 
     <title>BHC</title>
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
@@ -37,7 +37,7 @@
   <body>
     <!-- Nav -->
     <div class="nav navbar navbar-dark bg-dark">
-      <a class="nav-link" href="https://web7.jhuep.com/mrobi100_module10/index.html">Home</a>
+      <a class="nav-link" href="https://web7.jhuep.com/mrobi100_module10/index.jsp">Home</a>
       <a class="pull-right" href="https://www.fs.usda.gov/recarea/shoshone/recarea/?recid=80899">
         Visit the Forest Service's Page
       </a>
