@@ -7,6 +7,7 @@ package edu.jhu.mrobi100;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -42,7 +43,7 @@ public class BhcQuery {
         "FROM ((reservation\n" +
         "INNER JOIN locations ON reservation.location = locations.idlocations)\n" +
         "INNER JOIN guides ON reservation.guide = guides.idguides)\n" +
-        "WHERE reservation.StartDay > '" + REPLACE_ME  + "'\n" + 
+        "WHERE reservation.StartDay > ? \n" + 
         "ORDER BY reservation.`StartDay`" +";";
 
     public BhcQuery() {
@@ -57,11 +58,11 @@ public class BhcQuery {
         
         try {
             Connection connection = DriverManager.getConnection(dbURL, userName, password);
-            Statement s = connection.createStatement();
+            PreparedStatement s = connection.prepareStatement(mainQuery);
             
             String date = sdf.format(d);
-            String query = mainQuery.replace(REPLACE_ME, date);
-            ResultSet a = s.executeQuery(query);
+            s.setString(1, date);
+            ResultSet a = s.executeQuery();
             
             return parseOutput(a);
             
